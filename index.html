@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LearnHub — Modern Multi-National Learning Platform</title>
+  <meta name="description" content="Comprehensive curriculum-aligned digital learning platform for Nigerian secondary & primary schools and international curricula with notes, CBT quizzes, and assignments.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header class="topbar">
+    <div class="brand-container">
+      <div class="logo-badge">🎓</div>
+      <div>
+        <span class="brand-title">LearnHub</span>
+        <span class="brand-tagline">Curriculum • Quizzes • Assignments</span>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Science Pioneers Modal Trigger -->
+      <button id="nav-pioneers-btn" class="secondary sm" title="Famous Science Pioneers & Experts Gallery">
+        <span>🔬</span> Science Pioneers
+      </button>
+
+      <!-- Dark / Light Mode Toggle -->
+      <button id="theme-toggle" class="icon-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode">
+        <span id="theme-icon">🌙</span>
+      </button>
+
+      <!-- Authenticated Student Chips -->
+      <div id="nav-student-chips" style="display: none; align-items: center; gap: 0.5rem;">
+        <div class="stat-chip streak" title="Learning Streak">
+          <span>🔥</span> <span id="nav-streak">3 Days</span>
+        </div>
+        <div class="stat-chip xp" title="Total Experience Points">
+          <span>⭐</span> <span id="nav-xp">0 XP</span>
+        </div>
+        <button id="profile-edit-btn" class="secondary sm" title="Edit Educational Level / Class">
+          <span id="nav-country-flag">🇳🇬</span> <span id="nav-class-badge">SSS 1</span> ▾
+        </button>
+        <button id="logout-button" class="outline sm">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= AUTHENTICATION SCREEN ================= -->
+  <section id="auth-screen" class="screen">
+    <div class="auth-wrapper">
+      <div class="auth-header">
+        <h1>Welcome to LearnHub</h1>
+        <p>Curriculum-aligned mastery, interactive CBT tests & assignments tailored to your country's educational system.</p>
+      </div>
+
+      <!-- Quick Demo Login Presets -->
+      <div class="quick-demo-section">
+        <div class="quick-demo-title">
+          <span>⚡</span> Quick Demo Profiles (Click to explore instantly):
+        </div>
+        <div class="demo-pills">
+          <button type="button" class="demo-pill" data-demo="nigeria-sss2-science">
+            🇳🇬 Nigeria SSS 2 (Science)
+          </button>
+          <button type="button" class="demo-pill" data-demo="nigeria-sss1-commercial">
+            🇳🇬 Nigeria SSS 1 (Commercial)
+          </button>
+          <button type="button" class="demo-pill" data-demo="nigeria-jss3">
+            🇳🇬 Nigeria JSS 3 (BECE)
+          </button>
+          <button type="button" class="demo-pill" data-demo="ghana-shs2">
+            🇬🇭 Ghana SHS 2 (WASSCE)
+          </button>
+          <button type="button" class="demo-pill" data-demo="uk-gcse">
+            🇬🇧 UK GCSE (Year 10)
+          </button>
+          <button type="button" class="demo-pill" data-demo="usa-highschool">
+            🇺🇸 US High School (Grade 10)
+          </button>
+        </div>
+      </div>
+
+      <!-- Sign Up / Sign In Tab Switcher -->
+      <div class="auth-tabs">
+        <button type="button" id="show-signup" class="auth-tab-btn active">Create Account</button>
+        <button type="button" id="show-login" class="auth-tab-btn">Sign In</button>
+      </div>
+
+      <!-- SIGN UP FORM -->
+      <form id="signup-form">
+        <div class="form-grid">
+          <!-- Full Name -->
+          <div>
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" placeholder="e.g. Chinedu Okafor" required autocomplete="name">
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="signup-email">Email Address</label>
+            <input type="email" id="signup-email" placeholder="student@example.com" required autocomplete="email">
+          </div>
+
+          <!-- Password -->
+          <div class="form-full">
+            <label for="signup-password">Password (minimum 6 characters)</label>
+            <input type="password" id="signup-password" minlength="6" placeholder="••••••••" required autocomplete="new-password">
+          </div>
+
+          <!-- Country Selection -->
+          <div class="form-full">
+            <label for="signup-country">Country / Educational System</label>
+            <select id="signup-country" required>
+              <option value="Nigeria">🇳🇬 Nigeria (NERDC / WAEC / NECO / JAMB)</option>
+              <option value="Ghana">🇬🇭 Ghana (GES / NaCCA / WASSCE)</option>
+              <option value="United Kingdom">🇬🇧 United Kingdom (GCSE / A-Levels)</option>
+              <option value="United States">🇺🇸 United States (K-12 Common Core / AP)</option>
+              <option value="Kenya">🇰🇪 Kenya (CBC 2-6-3-3-3 / KPSEA)</option>
+            </select>
+            <div id="system-info-pill" class="system-info-pill">
+              6-3-3-4 System (NERDC / WAEC / NECO / JAMB curriculum)
+            </div>
+          </div>
+
+          <!-- Educational Level Selection -->
+          <div>
+            <label for="signup-level">Education Level</label>
+            <select id="signup-level" required>
+              <option value="Senior Secondary (SSS)">Senior Secondary (SSS)</option>
+              <option value="Junior Secondary (JSS)">Junior Secondary (JSS)</option>
+              <option value="Primary School">Primary School</option>
+            </select>
+          </div>
+
+          <!-- Class Selection -->
+          <div>
+            <label for="signup-class">Class / Grade</label>
+            <select id="signup-class" required>
+              <option value="SSS 1">SSS 1</option>
+              <option value="SSS 2">SSS 2</option>
+              <option value="SSS 3">SSS 3</option>
+            </select>
+          </div>
+
+          <!-- Stream / Department Selection (Dynamic) -->
+          <div id="stream-container" class="form-full">
+            <label for="signup-stream">Subject Stream / Department</label>
+            <select id="signup-stream">
+              <option value="All Subjects">All Subjects (Standard 9-10+ Subjects)</option>
+              <option value="Science">Science (Physics, Chemistry, Biology, Math...)</option>
+              <option value="Commercial / Business">Commercial (Accounting, Commerce, Economics...)</option>
+              <option value="Arts & Humanities">Arts (Literature, Government, Civic...)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="primary auth-submit-btn">
+          <span>🚀</span> Create Account & Start Learning
+        </button>
+      </form>
+
+      <!-- SIGN IN FORM -->
+      <form id="login-form" style="display: none;">
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div>
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" placeholder="student@example.com" required autocomplete="email">
+          </div>
+
+          <div>
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <button type="submit" class="primary auth-submit-btn">
+          <span>🔐</span> Sign In to Dashboard
+        </button>
+      </form>
+
+      <!-- Auth feedback message -->
+      <div id="auth-alert" class="auth-alert" role="status"></div>
+    </div>
+  </section>
+
+  <!-- ================= LEARNING DASHBOARD SCREEN ================= -->
+  <section id="learning-screen" class="screen" style="display: none;">
+    <main class="main-content">
+      
+      <!-- HERO STUDENT BANNER -->
+      <section class="hero-banner">
+        <div class="hero-layout">
+          <div class="hero-user">
+            <div id="user-avatar" class="user-avatar">CO</div>
+            <div class="hero-info">
+              <h2>Welcome back, <span id="hero-user-name">Student</span>! 👋</h2>
+              <p class="muted" id="hero-user-sub">Ready to master your curriculum lessons, assignments and CBT tests?</p>
+              <div class="hero-badges">
+                <span id="hero-badge-country" class="badge badge-country">🇳🇬 Nigeria</span>
+                <span id="hero-badge-class" class="badge badge-level">SSS 1</span>
+                <span id="hero-badge-stream" class="badge badge-stream">All Subjects</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <div class="metric-value" id="metric-lessons-done">0</div>
+              <div class="metric-label">Lessons Read</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-quizzes-taken">0</div>
+              <div class="metric-label">Quizzes Passed</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-quiz-avg">0%</div>
+              <div class="metric-label">Quiz Accuracy</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-assignments-done">0</div>
+              <div class="metric-label">Assignments</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VIEW 1: SUBJECT CATALOG ================= -->
+      <section id="catalog-view">
+        <div class="catalog-toolbar">
+          <!-- Department Filter Pills -->
+          <div class="filter-pills" id="category-filter-pills">
+            <button class="filter-pill active" data-category="all">All Subjects</button>
+            <button class="filter-pill" data-category="core">Core</button>
+            <button class="filter-pill" data-category="science">Science</button>
+            <button class="filter-pill" data-category="commercial">Commercial</button>
+            <button class="filter-pill" data-category="arts">Arts</button>
+            <button class="filter-pill" data-category="vocational">Vocational</button>
+          </div>
+
+          <!-- Search Box -->
+          <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="search" id="subject-search-input" class="search-input" placeholder="Search subjects or topics...">
+          </div>
+        </div>
+
+        <!-- Subjects Grid -->
+        <div id="subject-grid" class="subject-grid"></div>
+      </section>
+
+      <!-- ================= VIEW 2: SUBJECT DETAIL WORKSPACE ================= -->
+      <section id="subject-workspace" style="display: none;">
+        <!-- Workspace Header -->
+        <div class="workspace-header">
+          <div class="workspace-title-box">
+            <button id="workspace-back-btn" class="secondary" title="Return to Subject List">
+              <span>←</span> All Subjects
+            </button>
+            <div id="workspace-subject-icon" class="workspace-icon">📚</div>
+            <div>
+              <h2 id="workspace-subject-title">Subject Title</h2>
+              <p class="muted" id="workspace-subject-desc">Subject Description</p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span id="workspace-category-badge" class="category-tag core">Core</span>
+            <span id="workspace-progress-text" class="stat-chip">0 / 0 Completed</span>
+          </div>
+        </div>
+
+        <!-- Workspace Nav Tabs -->
+        <nav class="workspace-nav-tabs">
+          <button class="nav-tab-btn active" data-tab="lessons">
+            <span>📖</span> Curriculum & Lessons
+          </button>
+          <button class="nav-tab-btn" data-tab="assignments">
+            <span>📝</span> Assignments & Tasks
+          </button>
+          <button class="nav-tab-btn" data-tab="quizzes">
+            <span>⏱️</span> CBT Practice Quizzes
+          </button>
+          <button class="nav-tab-btn" data-tab="flashcards">
+            <span>💡</span> Flashcards & Summary
+          </button>
+          <button class="nav-tab-btn" data-tab="scientists">
+            <span>🔬</span> Scientists & Quotes
+          </button>
+          <button class="nav-tab-btn" data-tab="ai-tutor">
+            <span>🤖</span> Ask LearnHub AI Tutor
+          </button>
+        </nav>
+
+        <!-- Workspace Tab Content Panels -->
+        <div class="workspace-body">
+          
+          <!-- TAB 1: CURRICULUM & LESSONS -->
+          <div id="tab-panel-lessons" class="tab-panel">
+            <div class="curriculum-layout">
+              <!-- Topic Selector Sidebar -->
+              <aside class="topic-sidebar">
+                <div class="topic-sidebar-header">Topics & Scheme of Work</div>
+                <!-- 3-Term Filter Bar -->
+                <div class="term-filter-bar" id="term-filter-bar">
+                  <button type="button" class="term-pill active" data-term="all">All Terms</button>
+                  <button type="button" class="term-pill" data-term="First Term">1st Term</button>
+                  <button type="button" class="term-pill" data-term="Second Term">2nd Term</button>
+                  <button type="button" class="term-pill" data-term="Third Term">3rd Term</button>
+                </div>
+                <div id="topic-sidebar-list" class="topic-list"></div>
+              </aside>
+
+              <!-- Lesson Content Area -->
+              <article class="lesson-content-card">
+                <div class="lesson-top-bar">
+                  <div class="lesson-meta-badges">
+                    <span id="lesson-term-badge" class="badge badge-level">First Term</span>
+                    <span id="lesson-time-badge" class="badge badge-country">⏱️ 8 min read</span>
+                  </div>
+                  <div class="lesson-controls">
+                    <button id="lesson-read-aloud-btn" class="secondary sm" title="Listen to Lesson Audio">
+                      <span id="read-aloud-icon">🔊</span> Listen
+                    </button>
+                    <button id="lesson-print-btn" class="secondary sm" title="Print or Save Note">
+                      <span>🖨️</span> Print Note
+                    </button>
+                  </div>
+                </div>
+
+                <h2 id="lesson-display-title" style="margin-bottom: 1.25rem;">Select a topic to start reading</h2>
+
+                <!-- Learning Objectives -->
+                <div class="objectives-card" id="lesson-objectives-box">
+                  <h4><span>🎯</span> Learning Objectives</h4>
+                  <ul id="lesson-objectives-list" class="objectives-list"></ul>
+                </div>
+
+                <!-- Rich Lesson Notes -->
+                <div id="lesson-display-notes" class="lesson-markdown"></div>
+
+                <!-- Summary Key Takeaways -->
+                <div class="summary-card" id="lesson-summary-box">
+                  <h4><span>📌</span> Key Takeaways</h4>
+                  <ul id="lesson-summary-list" class="summary-list"></ul>
+                </div>
+
+                <!-- Complete Action Bar -->
+                <div class="lesson-actions-bar">
+                  <button id="lesson-complete-toggle-btn" class="primary">
+                    <span>✓</span> Mark Lesson as Completed
+                  </button>
+                  <p id="lesson-completed-feedback" class="muted"></p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- TAB 2: ASSIGNMENTS -->
+          <div id="tab-panel-assignments" class="tab-panel" style="display: none;">
+            <div class="assignment-container">
+              <div class="assignment-header-card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                  <div>
+                    <span class="category-tag vocational">Self-Paced Homework</span>
+                    <h3 id="assignment-title" style="margin: 0.5rem 0;">Assignment Title</h3>
+                    <p class="muted" id="assignment-instructions">Read the tasks below and compose your response.</p>
+                  </div>
+                  <div id="assignment-status-badge" class="badge badge-country">Not Submitted</div>
+                </div>
+
+                <div class="assignment-tasks-box">
+                  <h4 style="margin-bottom: 0.5rem;">📋 Assignment Tasks & Questions:</h4>
+                  <div id="assignment-tasks-list"></div>
+                </div>
+
+                <!-- Student Submission Input Area -->
+                <div class="submission-area">
+                  <label for="assignment-submission-text">Your Written Submission / Answers:</label>
+                  <textarea id="assignment-submission-text" class="submission-textarea" placeholder="Type your answers, step-by-step calculations, or essay responses here..."></textarea>
+                  <div class="submission-meta">
+                    <span id="assignment-word-count">0 words</span>
+                    <span>Auto-saves as you type</span>
+                  </div>
+                  
+                  <div style="margin-top: 1rem; display: flex; gap: 0.75rem;">
+                    <button id="assignment-submit-btn" class="primary">
+                      <span>📤</span> Submit Assignment for Evaluation
+                    </button>
+                    <button id="assignment-clear-btn" class="secondary">
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Instant Rubric Evaluation Result -->
+              <div id="assignment-result-card" class="assignment-result-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                  <div>
+                    <h4 style="color: #15803d; font-size: 1.2rem;">Teacher & Automated Evaluation</h4>
+                    <p class="muted" style="margin: 0;">Reviewed according to standard marking scheme</p>
+                  </div>
+                  <div class="grade-badge-huge" id="assignment-grade-text">A (9/10)</div>
+                </div>
+                
+                <p id="assignment-feedback-narrative" style="line-height: 1.7;"></p>
+
+                <div class="sample-answer-box">
+                  <strong>💡 Model Solution & Marking Rubric:</strong>
+                  <div id="assignment-sample-answer" style="margin-top: 0.5rem;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: CBT PRACTICE QUIZZES -->
+          <div id="tab-panel-quizzes" class="tab-panel" style="display: none;">
+            <div class="quiz-container">
+              
+              <!-- Quiz Intro State -->
+              <div id="quiz-intro-card" class="quiz-intro-card">
+                <div style="font-size: 3rem; margin-bottom: 0.75rem;">⏱️</div>
+                <h3 id="quiz-intro-title">Computer-Based Practice Test (CBT)</h3>
+                <p class="muted" id="quiz-intro-subtitle">Test your understanding with WAEC/JAMB format multiple choice questions and instant rationale.</p>
+                
+                <div style="display: flex; justify-content: center; gap: 1rem; margin: 1.5rem 0;">
+                  <div class="stat-chip">📝 <span id="quiz-question-count-badge">4 Questions</span></div>
+                  <div class="stat-chip">⏱️ Untimed Practice</div>
+                  <div class="stat-chip xp">⭐ +25 XP per test</div>
+                </div>
+
+                <button id="quiz-start-btn" class="primary" style="padding: 0.85rem 2rem; font-size: 1.05rem;">
+                  <span>▶️</span> Start CBT Quiz Now
+                </button>
+              </div>
+
+              <!-- Quiz Active Question Card -->
+              <div id="quiz-active-card" class="quiz-active-card">
+                <div class="quiz-header-bar">
+                  <span id="quiz-progress-counter" class="badge badge-level">Question 1 of 4</span>
+                  <div class="progress-track" style="width: 140px;">
+                    <div id="quiz-progress-bar" class="progress-fill" style="width: 25%;"></div>
+                  </div>
+                </div>
+
+                <div id="quiz-question-text" class="quiz-question-text">Question Prompt</div>
+
+                <div id="quiz-options-container" class="quiz-options-list"></div>
+
+                <!-- Instant Rationale / Feedback Box -->
+                <div id="quiz-feedback-box" class="quiz-feedback-box">
+                  <h4 id="quiz-feedback-title" style="margin-bottom: 0.35rem;">Explanation:</h4>
+                  <p id="quiz-feedback-explanation" style="font-size: 0.95rem; margin: 0;"></p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem;">
+                  <button id="quiz-quit-btn" class="ghost sm">Quit Quiz</button>
+                  <button id="quiz-next-btn" class="primary" style="display: none;">
+                    Next Question <span>→</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quiz Score / Completion Card -->
+              <div id="quiz-score-card" class="quiz-score-card">
+                <div class="score-circle">
+                  <span class="score-number" id="quiz-score-percentage">100%</span>
+                  <span class="score-label">Score</span>
+                </div>
+                
+                <h3 id="quiz-score-title">Outstanding Performance! 🎉</h3>
+                <p class="muted" id="quiz-score-summary">You answered 4 out of 4 questions correctly.</p>
+                
+                <div style="margin: 1.5rem 0; display: flex; justify-content: center; gap: 1rem;">
+                  <button id="quiz-retake-btn" class="primary">
+                    <span>🔄</span> Retake This Quiz
+                  </button>
+                  <button id="quiz-back-curriculum-btn" class="secondary">
+                    <span>📖</span> Back to Lessons
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- TAB 4: FLASHCARDS & REVISION -->
+          <div id="tab-panel-flashcards" class="tab-panel" style="display: none;">
+            <div class="flashcards-container">
+              <h3>Interactive Topic Flashcards</h3>
+              <p class="muted">Click on the flashcard to flip between the Question and Answer.</p>
+
+              <div class="flashcard-wrapper" id="flashcard-element">
+                <div class="flashcard-inner" id="flashcard-inner">
+                  <div class="flashcard-face flashcard-front">
+                    <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--primary); margin-bottom: 1rem;">Question</span>
+                    <h3 id="flashcard-question-text">Click to reveal definition</h3>
+                    <div class="flashcard-hint">🔄 Click to flip</div>
+                  </div>
+                  <div class="flashcard-face flashcard-back">
+                    <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 1rem;">Answer & Explanation</span>
+                    <p id="flashcard-answer-text" style="font-size: 1.15rem; line-height: 1.6;"></p>
+                    <div class="flashcard-hint" style="color: rgba(255,255,255,0.75);">🔄 Click to flip back</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flashcard-nav">
+                <button id="flashcard-prev-btn" class="secondary sm">← Previous</button>
+                <span id="flashcard-counter" class="badge badge-country">Card 1 of 3</span>
+                <button id="flashcard-next-btn" class="secondary sm">Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4b: SCIENTISTS & QUOTES -->
+          <div id="tab-panel-scientists" class="tab-panel" style="display: none;">
+            <div class="scientists-container">
+              <h3>Famous Scientists & Their Work</h3>
+              <p class="muted">Inspiring figures, breakthroughs and quotes that shaped science.</p>
+              <div id="scientists-grid" class="scientists-grid"></div>
+            </div>
+          </div>
+
+          <!-- TAB 5: ASK LEARNHUB AI TUTOR -->
+          <div id="tab-panel-ai-tutor" class="tab-panel" style="display: none;">
+            <div class="ai-tutor-container">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <div style="font-size: 2.2rem;">🤖</div>
+                  <div>
+                    <h3 style="margin: 0;">LearnHub AI Study Assistant</h3>
+                    <p class="muted" style="margin: 0.2rem 0 0 0; font-size: 0.88rem;">Step-by-step calculations, concept breakdowns, WAEC exam coaching & memory mnemonics.</p>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" id="ai-settings-toggle-btn" class="secondary sm" title="AI Settings & API Key">⚙️ Settings</button>
+                  <button type="button" id="ai-clear-chat-btn" class="secondary sm" title="Clear Chat History">🧹 Clear</button>
+                </div>
+              </div>
+
+              <!-- AI Mode Selector Bar -->
+              <div class="ai-modes-bar" id="ai-modes-bar">
+                <button type="button" class="ai-mode-pill active" data-mode="tutor">💬 Concept Tutor</button>
+                <button type="button" class="ai-mode-pill" data-mode="solver">🔢 Step-by-Step Solver</button>
+                <button type="button" class="ai-mode-pill" data-mode="waec">📝 WAEC Past Questions</button>
+                <button type="button" class="ai-mode-pill" data-mode="quiz">❓ Quiz Me</button>
+                <button type="button" class="ai-mode-pill" data-mode="mnemonics">🧠 Memory Mnemonics</button>
+              </div>
+
+              <!-- Quick Prompt Suggestions -->
+              <div class="ai-quick-prompts" id="ai-quick-prompts">
+                <button class="ai-prompt-chip" data-prompt="Explain this topic in simpler terms with a real-life analogy.">💡 Explain simply with analogy</button>
+                <button class="ai-prompt-chip" data-prompt="Solve a step-by-step sample calculation for this topic.">🔢 Step-by-step solved calculation</button>
+                <button class="ai-prompt-chip" data-prompt="What questions come out in WAEC/JAMB on this topic and how are marks awarded?">📝 Common WAEC exam questions</button>
+                <button class="ai-prompt-chip" data-prompt="Test my knowledge with an interactive question on this topic!">❓ Test me with a question</button>
+                <button class="ai-prompt-chip" data-prompt="Give me a memorable acronym or mnemonic to remember this.">🧠 Memory mnemonic</button>
+              </div>
+
+              <!-- Chat Message History -->
+              <div id="ai-chat-box" class="ai-chat-box">
+                <div class="ai-message ai">
+                  <div style="font-size: 1.5rem;">🤖</div>
+                  <div class="ai-bubble">
+                    Hello! I'm your LearnHub study assistant. I can explain any concept, calculate step-by-step math and science problems, simulate WAEC examination questions, and test your understanding. Ask a question or click any prompt above!
+                  </div>
+                </div>
+              </div>
+
+              <form id="ai-input-form" class="ai-input-row">
+                <input type="text" id="ai-input-text" placeholder="Ask a question or enter an equation to solve..." required autocomplete="off">
+                <button type="submit" class="primary">
+                  <span>Send</span> <span>➤</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </section>
+
+  <!-- ================= SCIENCE PIONEERS MODAL ================= -->
+  <div id="pioneers-modal" class="pioneers-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="pioneers-modal-title">
+    <div class="pioneers-modal-dialog">
+      <div class="pioneers-modal-header">
+        <div>
+          <h3 id="pioneers-modal-title" style="margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+            <span>🔬</span> Famous Science Pioneers & Experts
+          </h3>
+          <p class="muted" style="margin: 0.25rem 0 0 0; font-size: 0.85rem;">Discover groundbreaking scientists, their discoveries, and inspiring quotes.</p>
+        </div>
+        <button type="button" id="close-pioneers-btn" class="icon-btn" title="Close Modal">&times;</button>
+      </div>
+
+      <div class="pioneers-modal-body">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <div class="filter-pills" id="pioneers-filter-pills">
+            <button class="filter-pill active" data-pioneer-cat="all">All Pioneers</button>
+            <button class="filter-pill" data-pioneer-cat="physics">Physics</button>
+            <button class="filter-pill" data-pioneer-cat="chemistry">Chemistry</button>
+            <button class="filter-pill" data-pioneer-cat="biology">Biology</button>
+            <button class="filter-pill" data-pioneer-cat="math">Mathematics</button>
+            <button class="filter-pill" data-pioneer-cat="computer">Computer Science</button>
+          </div>
+          <div class="search-wrapper" style="width: min(260px, 100%);">
+            <span class="search-icon">🔍</span>
+            <input type="search" id="pioneers-search-input" class="search-input" placeholder="Search scientist or work...">
+          </div>
+        </div>
+
+        <div id="all-pioneers-grid" class="pioneers-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= AI SETTINGS MODAL ================= -->
+  <div id="ai-settings-modal" class="pioneers-modal-backdrop" role="dialog" aria-modal="true">
+    <div class="pioneers-modal-dialog" style="max-width: 500px;">
+      <div class="pioneers-modal-header">
+        <h3 style="margin: 0;">⚙️ LearnHub AI Settings</h3>
+        <button type="button" id="close-ai-settings-btn" class="icon-btn">&times;</button>
+      </div>
+      <div class="pioneers-modal-body">
+        <p style="font-size: 0.92rem; line-height: 1.6;">
+          LearnHub AI features a comprehensive built-in educational engine that operates <strong>100% offline</strong> with step-by-step problem solving, WAEC exam tips, and interactive quizzes.
+        </p>
+        <p style="font-size: 0.92rem; line-height: 1.6;">
+          You can optionally connect your free <strong>Google Gemini API Key</strong> to unlock unlimited live generative AI reasoning!
+        </p>
+        <div style="margin: 1.25rem 0;">
+          <label for="gemini-api-key-input">Gemini API Key (Optional):</label>
+          <input type="password" id="gemini-api-key-input" placeholder="AIzaSy..." autocomplete="off">
+          <small class="muted" style="display: block; margin-top: 0.35rem;">Key is stored locally in your browser. Leave blank to use LearnHub's high-speed local engine.</small>
+        </div>
+        <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+          <button type="button" id="save-ai-settings-btn" class="primary">Save Key</button>
+          <button type="button" id="clear-ai-settings-btn" class="secondary">Remove Key</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FLOATING TOAST CONTAINER ================= -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="curriculum.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
